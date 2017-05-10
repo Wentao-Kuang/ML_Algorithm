@@ -1,19 +1,28 @@
 from numpy import *
 import operator
 
-#create dataset
-def createDataSet():
-    group = array([[1.0,1.1],[1.0,1.0],[0,0],[0,0.1]])
-    lables = ['A','A','B','B']
-    return group, lables
+'''
+kNN: k Nearest Neighbors
+
+@author: Wentao Kuang
+'''
 
 
-#kNN Algorithm implementation
-def kNNClisifier(inX, dataSet, labels, k):
+'''
+kNN: k Nearest Neighbors Algorithm
+
+Input:      inX: vector to compare to existing dataset (1xN)
+            dataSet: size m data set of known vectors (NxM)
+            labels: data set labels (1xM vector)
+            k: number of neighbors to use for comparison (should be an odd number)
+
+Output:     the most popular class label
+'''
+def kNNClisifier(inX, dataSet, lables, k):
 
     #caculating the distance
     dataSetSize = dataSet.shape[0]
-    diffMat = tile(inX, (dataSetSize,1)) - dataSet
+    diffMat = tile(inX, (dataSetSize, 1)) - dataSet
     sqDiffMat = diffMat**2
     sqDistance = sqDiffMat.sum(axis=1)
     distances = sqDistance**0.5
@@ -24,12 +33,42 @@ def kNNClisifier(inX, dataSet, labels, k):
     for i in range(k):
         voteIlable = lables[sortedDistIndices[i]]
         classCount[voteIlable] = classCount.get(voteIlable,0) + 1
-    sortedClassCount = sorted(classCount.iteritems(),key=operator.itemgetter(1),reverse=True)
+    sortedClassCount = sorted(classCount.iteritems(), key=operator.itemgetter(1), reverse=True)
     return sortedClassCount[0][0]
 
 
-#test kNN
-group,lables=createDataSet()
-print(kNNClisifier([1,1],group,lables,3))
+'''
+Read txt file and convert to matrix
+
+Input:      filename: file address
+            Obs: numbers of observations
+
+Output:     returnMat: converted observations matrix
+            lables: converted class lables vector
+            
+'''
+def file2matrix(filename, Obs):
+
+    #read file
+    f = open(filename)
+    lines = f.readlines()
+    numberOfLines = len(lines)
+
+    #create return matrix
+    returnMat = zeros((numberOfLines, Obs))
+    lables = []
+    index = 0
+    for line in lines:
+        line = line.strip()
+        listFromLine = line.split('\t')
+        returnMat[index, :] = listFromLine[0:Obs]
+        lables.append(listFromLine[-1])
+        index += 1
+    return returnMat, lables
+
+
+
+
+
 
 
