@@ -1,4 +1,4 @@
-from numpy import *
+import numpy as np
 import operator
 
 '''
@@ -22,7 +22,7 @@ def kNNClisifier(inX, dataSet, lables, k):
 
     #caculating the distance
     dataSetSize = dataSet.shape[0]
-    diffMat = tile(inX, (dataSetSize, 1)) - dataSet
+    diffMat = np.tile(inX, (dataSetSize, 1)) - dataSet
     sqDiffMat = diffMat**2
     sqDistance = sqDiffMat.sum(axis=1)
     distances = sqDistance**0.5
@@ -55,7 +55,7 @@ def file2matrix(filename, Obs):
     numberOfLines = len(lines)
 
     #create return matrix
-    returnMat = zeros((numberOfLines, Obs))
+    returnMat = np.zeros((numberOfLines, Obs))
     lables = []
     index = 0
     for line in lines:

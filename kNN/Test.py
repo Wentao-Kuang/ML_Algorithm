@@ -1,4 +1,4 @@
-from numpy import *
+import numpy as np
 from kNN import *
 '''
 kNN: Testing k Nearest Neighbors
@@ -8,7 +8,7 @@ kNN: Testing k Nearest Neighbors
 
 #create test dataset
 def createTestDataSet():
-    group = array([[1.0, 1.1], [1.0, 1.0], [0, 0], [0, 0.1]])
+    group = np.array([[1.0, 1.1], [1.0, 1.0], [0, 0], [0, 0.1]])
     lables = ['A', 'A', 'B', 'B']
     return group, lables
 
