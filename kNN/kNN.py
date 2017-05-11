@@ -67,6 +67,26 @@ def file2matrix(filename, Obs):
     return returnMat, lables
 
 
+'''
+Feature normalization 
+
+newValue = (oldValue - min) / (max - min)
+
+Input:      dataSet: original dataset
+
+Output:     normDataSet: converted Normalized dataset
+            ranges: data ranges
+            minVal: minimal data
+'''
+def norm(dataSet):
+    minVals = dataSet.min(0)
+    maxVals = dataSet.max(0)
+    ranges = maxVals - minVals
+    normDataSet = np.zeros(np.shape(dataSet))
+    m = dataSet.shape[0]
+    normDataSet = dataSet - np.tile(minVals, (m, 1))
+    normDataSet = normDataSet/np.tile(ranges, (m, 1))
+    return normDataSet, ranges, minVals
 
 
 
