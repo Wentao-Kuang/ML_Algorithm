@@ -16,3 +16,4 @@ group, labels = createDataSet()
 
 print splitDataSet(group,0,1)
 print(chooseBestFeature(group))
+print(createTree(group, labels))

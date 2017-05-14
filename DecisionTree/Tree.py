@@ -1,5 +1,5 @@
 from math import log
-
+import operator
 '''
 Decision Tree (DT)
 
@@ -72,3 +72,36 @@ def chooseBestFeature(dataSet):
             bestInfoGain = infoGain
             bestFeature = i
     return bestFeature
+
+
+'''
+Sort list
+
+'''
+def majorityCnt(classList):
+    classCount = {}
+    for vote in classList:
+        if vote not in classCount.keys(): classCount[vote] = 0
+        classCount[vote] += 1
+    sortedClassCount = sorted(classCount.iteritems(), key=operator.itemgetter(1), reverse=true)
+    return sortedClassCount[0][0]
+
+'''
+Build decision Tree
+'''
+def createTree(dataSet, lables):
+    classList = [example[-1] for example in dataSet]
+    if classList.count(classList[0]) == len(classList):
+        return classList[0]
+    if len(dataSet[0]) == 1:
+        return majorityCnt(classList)
+    bestFeat = chooseBestFeature(dataSet)
+    bestFeatLabel = lables[bestFeat]
+    myTree = {bestFeatLabel:{}}
+    del(lables[bestFeat])
+    featValues = [example[bestFeat] for example in dataSet]
+    uniqueVals = set(featValues)
+    for value in uniqueVals:
+        subLabels = lables[:]
+        myTree[bestFeatLabel][value] = createTree(splitDataSet(dataSet, bestFeat, value), subLabels)
+    return myTree
