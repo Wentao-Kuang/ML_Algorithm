@@ -32,9 +32,9 @@ def ShannonEnt(dataSet):
 '''
 Split Dataset
 
-Input:      dataSet: Matrix data set
-            axis:
-            value
+Input:      dataSet: dataSet to be splited
+            axis: feature to be scaned
+            value: feature value need to selected
 
 Output:     splited dataset
 '''
@@ -46,3 +46,29 @@ def splitDataSet(dataSet, axis, value):
             reducedFeatVec.extend(featVec[axis+1:])
             retDataSet.append(reducedFeatVec)
     return retDataSet
+
+'''
+Split Dataset with best feature use shannon entropy
+
+Input:      dataSet: dataSet to be splited
+            
+Output:     best feature
+'''
+def chooseBestFeature(dataSet):
+    numFeature = len(dataSet[0]) - 1
+    baseEntropy = ShannonEnt(dataSet)
+    bestInfoGain = 0.0
+    bestFeature = -1
+    for i in range(numFeature):
+        featList = [example[i] for example in dataSet]
+        uniqueVals = set(featList)
+        newEntropy = 0.0
+        for value in uniqueVals:
+            subDataSet = splitDataSet(dataSet, i, value)
+            prob = len(subDataSet)/float(len(dataSet))
+            newEntropy += prob * ShannonEnt(subDataSet)
+        infoGain = baseEntropy - newEntropy
+        if(infoGain > bestInfoGain):
+            bestInfoGain = infoGain
+            bestFeature = i
+    return bestFeature

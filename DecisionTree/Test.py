@@ -14,4 +14,5 @@ def createDataSet():
 
 group, labels = createDataSet()
 
-print ShannonEnt(group)
+print splitDataSet(group,0,1)
+print(chooseBestFeature(group))
