@@ -27,3 +27,22 @@ def ShannonEnt(dataSet):
         prob = float(labelCounts[key])/numEntries
         shannonEnt -= prob * log(prob, 2)
     return shannonEnt
+
+
+'''
+Split Dataset
+
+Input:      dataSet: Matrix data set
+            axis:
+            value
+
+Output:     splited dataset
+'''
+def splitDataSet(dataSet, axis, value):
+    retDataSet = []
+    for featVec in dataSet:
+        if featVec[axis] == value:
+            reducedFeatVec = featVec[:axis]
+            reducedFeatVec.extend(featVec[axis+1:])
+            retDataSet.append(reducedFeatVec)
+    return retDataSet
