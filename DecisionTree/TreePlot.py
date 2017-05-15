@@ -27,4 +27,23 @@ def createPlot():
     plotNode('leafNode', (0.8, 0.1), (0.3, 0.8), leafNode)
     plt.show()
 
-createPlot()
+def getNumLeafs(myTree):
+    numLeafs = 0
+    firstStr = myTree.keys()[0]
+    secondDict = myTree[firstStr]
+    for key in secondDict.keys():
+        if type(secondDict[key]).__name__=='dict':#test to see if the nodes are dictonaires, if not they are leaf nodes
+            numLeafs += getNumLeafs(secondDict[key])
+        else:   numLeafs +=1
+    return numLeafs
+
+def getTreeDepth(myTree):
+    maxDepth = 0
+    firstStr = myTree.keys()[0]
+    secondDict = myTree[firstStr]
+    for key in secondDict.keys():
+        if type(secondDict[key]).__name__=='dict':#test to see if the nodes are dictonaires, if not they are leaf nodes
+            thisDepth = 1 + getTreeDepth(secondDict[key])
+        else:   thisDepth = 1
+        if thisDepth > maxDepth: maxDepth = thisDepth
+    return maxDepth
