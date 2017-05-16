@@ -73,3 +73,8 @@ def plotTree(myTree, parentPt, nodeTxt):#if the first key tells you what feat wa
     plotTree.yOff = plotTree.yOff + 1.0/plotTree.totalD
 #if you do get a dictonary you know it's a tree, and the first element will be another dict
 
+def retrieveTree(i):
+    listOfTrees =[{'no surfacing': {0: 'no', 1: {'flippers': {0: 'no', 1: 'yes'}}}},
+                  {'no surfacing': {0: 'no', 1: {'flippers': {0: {'head': {0: 'no', 1: 'yes'}}, 1: 'no'}}}}
+                  ]
+    return listOfTrees[i]
