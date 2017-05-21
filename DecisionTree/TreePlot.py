@@ -49,4 +49,14 @@ def getTreeDepth(myTree):
     return maxDepth
 
 
-
+def createPlot(inTree):
+    fig = plt.figure(1, facecolor='white')
+    fig.clf()
+    axprops = dict(xticks=[], yticks=[])
+    createPlot.ax1 = plt.subplot(111, frameon=False, **axprops)    #no ticks
+    #createPlot.ax1 = plt.subplot(111, frameon=False) #ticks for demo puropses
+    plotTree.totalW = float(getNumLeafs(inTree))
+    plotTree.totalD = float(getTreeDepth(inTree))
+    plotTree.xOff = -0.5/plotTree.totalW; plotTree.yOff = 1.0;
+    plotTree(inTree, (0.5,1.0), '')
+    plt.show()
