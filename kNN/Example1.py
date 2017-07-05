@@ -37,6 +37,7 @@ def errorTest():
 
 
 '''
+Application implementation
 Clissify with input observation
 employed kNN algoritm with k=3
 '''
