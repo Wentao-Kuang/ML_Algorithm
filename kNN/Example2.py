@@ -5,6 +5,7 @@ import operator
 
 '''
 Image number recognition
+Using traingingDigits and testDigits dataset
 
 @author: Wentao Kuang
 '''
@@ -54,17 +55,17 @@ Testing the hand writing number recognition
 '''
 def NumRecTesting():
     # training data construction
-    trainingMat, lables = dataConstruction('/Users/kuangwentao/PycharmProjects/ML_Algorithm/kNN/DataSets/trainingDigits')
+    trainingMat, lables = dataConstruction('/Users/kuangwentao/PycharmProjects/ML_Algorithm/DataSets/trainingDigits')
 
     # test data construction and testing error rate
-    testFileList = listdir('/Users/kuangwentao/PycharmProjects/ML_Algorithm/kNN/DataSets/testDigits')
+    testFileList = listdir('/Users/kuangwentao/PycharmProjects/ML_Algorithm/DataSets/testDigits')
     errorCount = 0.0
     mTest = len(testFileList)
     for i in range(mTest):
         fileNameStr = testFileList[i]
         fileStr = fileNameStr.split('.')[0]
         classNumStr = int(fileStr.split('_')[0])
-        vectorUnderTest = img2vector('/Users/kuangwentao/PycharmProjects/ML_Algorithm/kNN/DataSets/testDigits/%s' % fileNameStr)
+        vectorUnderTest = img2vector('/Users/kuangwentao/PycharmProjects/ML_Algorithm/DataSets/testDigits/%s' % fileNameStr)
         result = kNN.kNNClisifier(vectorUnderTest, trainingMat, lables, 3)
         if(result != classNumStr) : errorCount += 1.0
     print "\nthe total number of errors is: %d" % errorCount

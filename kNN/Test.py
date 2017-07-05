@@ -12,16 +12,17 @@ def createTestDataSet():
     lables = ['A', 'A', 'B', 'B']
     return group, lables
 
-print('test kNN')
+#test kNN with examle dataset
 group, lables=createTestDataSet()
 print(kNNClisifier([1, 1], group, lables, 3))
 
-print('test file2matrix')
+
+#test datingTestSet
 group, lables = file2matrix('/Users/kuangwentao/PycharmProjects/ML_Algorithm/kNN/DataSets/datingTestSet.txt', 3)
 print(group)
 print(lables)
 
-print('test featurre normalization')
+#test featurre normalization
 group, lables=createTestDataSet()
 normgroup, ranges, minVal = norm(group)
 print(normgroup)
