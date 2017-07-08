@@ -17,20 +17,23 @@ Output:     Shannon Entropy
 def ShannonEnt(dataSet):
     numEntries = len(dataSet)
     labelCounts = {}
+    #count all numbers of each class
     for featVec in dataSet:
         currentLabel = featVec[-1]
         if currentLabel not in labelCounts.keys():
             labelCounts[currentLabel] = 0
         labelCounts[currentLabel] += 1
     shannonEnt = 0.0
+    #calculate entropy for each class
     for key in labelCounts:
         prob = float(labelCounts[key])/numEntries
         shannonEnt -= prob * log(prob, 2)
     return shannonEnt
 
 
+
 '''
-Split Dataset
+Split Dataset 
 
 Input:      dataSet: dataSet to be splited
             axis: feature to be scaned
@@ -42,6 +45,7 @@ def splitDataSet(dataSet, axis, value):
     retDataSet = []
     for featVec in dataSet:
         if featVec[axis] == value:
+            #get all other values in feaVec
             reducedFeatVec = featVec[:axis]
             reducedFeatVec.extend(featVec[axis+1:])
             retDataSet.append(reducedFeatVec)
@@ -60,6 +64,7 @@ def chooseBestFeature(dataSet):
     bestInfoGain = 0.0
     bestFeature = -1
     for i in range(numFeature):
+        #get all the values from feature i
         featList = [example[i] for example in dataSet]
         uniqueVals = set(featList)
         newEntropy = 0.0
@@ -75,7 +80,7 @@ def chooseBestFeature(dataSet):
 
 
 '''
-Sort list
+Sort list return the most frequency value.
 
 '''
 def majorityCnt(classList):
@@ -92,9 +97,9 @@ Build decision Tree
 def createTree(dataSet, lables):
     classList = [example[-1] for example in dataSet]
     if classList.count(classList[0]) == len(classList):
-        return classList[0]
+        return classList[0] #All the lables are same
     if len(dataSet[0]) == 1:
-        return majorityCnt(classList)
+        return majorityCnt(classList) #No feature left
     bestFeat = chooseBestFeature(dataSet)
     bestFeatLabel = lables[bestFeat]
     myTree = {bestFeatLabel:{}}
