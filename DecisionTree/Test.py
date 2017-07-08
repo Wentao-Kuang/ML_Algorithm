@@ -15,7 +15,11 @@ def createDataSet():
 
 group, labels = createDataSet()
 
-print splitDataSet(group,0,1)
-print(chooseBestFeature(group))
+#print splitDataSet(group,0,1)
+#print(chooseBestFeature(group))
 tree=createTree(group, labels)
-createPlot(tree)
+labels = ['no surfacing', 'flippers']
+print(classify(tree,labels,[1,1]))
+storeTree(tree,'Example1Tree.txt')
+print(grabTree('Example1Tree.txt'))
+#createPlot(tree)
