@@ -1,5 +1,6 @@
 import numpy as np
 from Tree import *
+from TreePlot import *
 '''
 kNN: Testing Decision Tree
 
@@ -16,4 +17,5 @@ group, labels = createDataSet()
 
 print splitDataSet(group,0,1)
 print(chooseBestFeature(group))
-print(createTree(group, labels))
+tree=createTree(group, labels)
+createPlot(tree)
