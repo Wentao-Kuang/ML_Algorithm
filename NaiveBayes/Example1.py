@@ -4,6 +4,7 @@ Identify abusive document.
 @author: Wentao Kuang
 '''
 from numpy import *
+from bayes import *
 
 
 def loadDataSet():
@@ -16,32 +17,24 @@ def loadDataSet():
     classVec = [0,1,0,1,0,1]    #1 is abusive, 0 not
     return postingList,classVec
 
-'''
-Find all the different vocabularies
-
-Input:      dataset
-
-Output:     vocaset: a set of vocabularies
-'''
-def createVocabList(dataset):
-    vocabSet= set([])
-    for document in dataset:
-        vocabSet = vocabSet | set(document) # union sets
-    return list(vocabSet)
 
 '''
-check the existence of vocab from vocablist in the document
+testing NaiveBayes Algorithms
 
-Input:      vocablist
-            inputSet
-
-Output:     returnVec: a set of binary value about the existence
 '''
-def checkExistence(vocabList, inputSet):
-    returnVec=[0]*len(vocabList)
-    for word in inputSet:
-        if word in vocabList:
-            returnVec[vocabList.index(word)]=1
-        else:
-            print "the word: %s is not in my vocabList!"%word
-    return returnVec
+
+
+def testingNB():
+    dataset,labels=loadDataSet()
+    myVocbList=createVocabList(dataset)
+    trainMatrix=[]
+    for doc in dataset:
+        trainMatrix.append(checkExistence(myVocbList,doc))
+    p0v,p1v,p1=trainNB0(trainMatrix,labels)
+    testEntry=['love','my','dalmation']
+    testMatrix = array(checkExistence(myVocbList,testEntry))
+    print testEntry,' classified as: ',classifyNB(testMatrix,p0v,p1v,p1)
+    testEntry=['stupid','garbage']
+    testMatrix=array(checkExistence(myVocbList,testEntry))
+    print testEntry,' classified as: ',classifyNB(testMatrix,p0v,p1v,p1)
+
