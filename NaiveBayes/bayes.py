@@ -20,6 +20,7 @@ def createVocabList(dataset):
 
 '''
 check the existence of vocab from vocablist in the document
+based on the set of words model
 
 Input:      vocablist
             inputSet
@@ -35,6 +36,23 @@ def checkExistence(vocabList, inputSet):
             print "the word: %s is not in my vocabList!"%word
     return returnVec
 
+'''
+check the number of existence of vocab from vocablist in the document
+based on the bag of words model
+
+Input:      vocablist
+            inputSet
+
+Output:     returnVec: a set of binary value about the existence
+'''
+def checkExistenceNum(vocabList, inputSet):
+    returnVec=[0]*len(vocabList)
+    for word in inputSet:
+        if word in vocabList:
+            returnVec[vocabList.index(word)] += 1
+        else:
+            print "the word: %s is not in my vocabList!"%word
+    return returnVec
 
 '''
 calculate the probabilities for training set
