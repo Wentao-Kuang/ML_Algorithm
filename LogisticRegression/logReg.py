@@ -34,3 +34,27 @@ def gradAscent(dataMat,labelMat,alpha,cycles):
         weights = weights + alpha*dataMatrix.transpose()*error
     return weights
 
+
+'''
+Stochastic Gradient Ascent based optimization
+
+Input:      dataMat: dataset features matrix
+            labelMat: labels matrix
+            alpha: moving rate
+
+Output:     trained weights
+
+'''
+def stocGradAscent(dataMat,labelMat,alpha,cycles):
+    m,n=shape(dataMat)
+    weights=ones(n)
+    for j in range(cycles):
+        dataIndex=range(m)
+        for i in range(m):
+            a = 4/(1.0+j+i)+alpha # convergent moving rate
+            randomIndex = int(random.uniform(0,len(dataIndex)))#random pick update
+            h = sigmoid(sum(dataMat[randomIndex]*weights))
+            error = labelMat[randomIndex] - h
+            weights = weights + a*error*dataMat[randomIndex]
+            del(dataIndex[randomIndex])
+    return weights

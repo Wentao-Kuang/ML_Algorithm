@@ -24,7 +24,10 @@ def loadDataSet():
 
 dataMat, labelMat =loadDataSet();
 weights = gradAscent(dataMat,labelMat,0.001,500)
+weights = stocGradAscent(array(dataMat),labelMat,0.01,150)
 print weights
+
+
 '''
 plot result
 '''
