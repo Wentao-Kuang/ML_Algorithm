@@ -58,3 +58,8 @@ def stocGradAscent(dataMat,labelMat,alpha,cycles):
             weights = weights + a*error*dataMat[randomIndex]
             del(dataIndex[randomIndex])
     return weights
+
+def classifyVector(x,weights):
+    prob=sigmoid(sum(x*weights))
+    if prob > 0.5 : return 1.0
+    else: return 0.0
